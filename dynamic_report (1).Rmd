@@ -1,0 +1,81 @@
+---
+title: My dynamic report
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, error=FALSE)
+
+```
+
+```{css}
+h2 {
+  color: #2c3e50;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 6px;
+  margin-top: 25px;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+}
+
+p {
+  margin-bottom: 15px;
+}
+
+```
+
+## How Party Habits May Influence Academic Performance
+
+This dynamic report summarizes s data on how often people attend parties, what kinds of drinks they consume, and how they think party habits affect their academic success. The responses were collected anonymously through a Google Form and reflect experiences and opinions.
+
+```{r}
+library(tidyverse)
+
+# Load and clean data
+latest_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRPtt_Qw5fwALtkYXMyztdMU3nEAQbry-Wak0S_KzDs3rFPupYiuIDOtfOR0F9-g8n7uK_gWiine_oh/pub?output=csv") %>%
+  rename(
+    timestamp = 1,
+    party_frequency = 2,
+    drinks_type = 3,
+    alcohol_type = 4,
+    drink_amount = 5,
+    study_effect = 6,
+    effect_description = 7
+  ) %>%
+  mutate(drink_amount = as.numeric(drink_amount))
+
+# Summary values for dynamic comments
+mean_drinks <- mean(latest_data$drink_amount, na.rm = TRUE)
+total_responses <- nrow(latest_data)
+# Dynamic summary comments using paste()
+cat(paste("A total of", total_responses, "responses were collected from the survey."), "\n")
+cat(paste("On average, participants consumed about", round(mean_drinks, 1), "drinks per party."), "\n")
+
+
+
+ggplot(latest_data, aes(x = party_frequency)) +
+  geom_bar(fill = "steelblue") +
+  labs(
+    title = "How Often People Attend Parties",
+    x = "Party Frequency",
+    y = "Number of Responses"
+  ) +
+  theme_minimal()
+
+ggplot(latest_data, aes(x = alcohol_type)) +
+  geom_bar(fill = "coral") +
+  labs(
+    title = "Preferred Type of Alcohol at Parties",
+    x = "Type of Alcohol",
+    y = "Count"
+  ) +
+  theme_minimal()
+
+
+```
+
