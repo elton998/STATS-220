@@ -49,15 +49,18 @@ latest_data <- read_csv("https://docs.google.com/spreadsheets/d/e/2PACX-1vRPtt_Q
   ) %>%
   mutate(drink_amount = as.numeric(drink_amount))
 
+
+
 # Summary values for dynamic comments
 mean_drinks <- mean(latest_data$drink_amount, na.rm = TRUE)
 total_responses <- nrow(latest_data)
+
+
 # Dynamic summary comments using paste()
 cat(paste("A total of", total_responses, "responses were collected from the survey."), "\n")
 cat(paste("On average, participants consumed about", round(mean_drinks, 1), "drinks per party."), "\n")
 
-
-
+# Plot 1
 ggplot(latest_data, aes(x = party_frequency)) +
   geom_bar(fill = "steelblue") +
   labs(
@@ -67,6 +70,7 @@ ggplot(latest_data, aes(x = party_frequency)) +
   ) +
   theme_minimal()
 
+# Plot 2
 ggplot(latest_data, aes(x = alcohol_type)) +
   geom_bar(fill = "coral") +
   labs(
