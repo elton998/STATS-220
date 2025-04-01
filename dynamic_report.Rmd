@@ -82,5 +82,8 @@ ggplot(latest_data, aes(x = alcohol_type)) +
   theme_minimal()
 
 
+
+go
+
 ```
 
