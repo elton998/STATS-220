@@ -83,7 +83,6 @@ ggplot(latest_data, aes(x = alcohol_type)) +
 
 
 
-go
 
 ```
 
