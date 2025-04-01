@@ -60,6 +60,7 @@ total_responses <- nrow(latest_data)
 cat(paste("A total of", total_responses, "responses were collected from the survey."), "\n")
 cat(paste("On average, participants consumed about", round(mean_drinks, 1), "drinks per party."), "\n")
 
+
 # Plot 1
 ggplot(latest_data, aes(x = party_frequency)) +
   geom_bar(fill = "steelblue") +
